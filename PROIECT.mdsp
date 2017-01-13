@@ -80,11 +80,11 @@ resourceIncludeDirectory=
 extraResourceOptions=
 
 [Source]
-1=PRCT.cpp
+
 [Header]
+
 [Resource]
+
 [Other]
-1=data.txt
+
 [History]
-PRCT.cpp,359
-data.txt,0

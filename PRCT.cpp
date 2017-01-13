@@ -324,7 +324,7 @@ void singlePlayer(int ordPl)
 	for(int index=0;index<=52;index++)
 		folosire[index]=0;
 
-	int mana[10],nrCarti=0,dlMana[10],dlNrCarti=0,totalP=0,totalD=0,bj=0,sp=0,sp2=0;
+	int mana[10],nrCarti=0,dlMana[10],dlNrCarti=0,totalP=0,totalD=0,bj=0;
 	string raspuns;
 	betGresit:
 	system("cls");
@@ -429,7 +429,7 @@ void singlePlayer(int ordPl)
 		}
 		cout<<endl<<"Total dealer: "<<totalD<<endl;
 		if(totalP>21)
-		cout<<endl<<"Ai pierdut prima mana!";
+			cout<<endl<<"Ai pierdut prima mana!";
 		else
 		{
 			if(totalD>21 )
@@ -594,6 +594,14 @@ void singlePlayer(int ordPl)
 	}
 	if(raspuns=="stand")
 	{
+		int insBet;
+		string insurance;
+		if(pachet[dlMana[0]].numar==14 || pachet[dlMana[0]].numar==1)
+		{
+			cout<<"Insurance? (da/nu)";
+			cin>>insurance;
+			insBet=bet/2;
+		}
 		system("cls");	
 		while(totalD<17)
 		{
@@ -603,8 +611,12 @@ void singlePlayer(int ordPl)
 			if(totalD>21)
 				verificamAs(totalD,dlMana,dlNrCarti);
 		}
-		
-		
+		if(insurance=="da")
+		{
+			jucator[ordPl].chips=jucator[ordPl].chips-insBet;
+			if(totalD==21)
+				jucator[ordPl].chips=jucator[ordPl].chips+insBet*2;
+		}
 		cout<<"Cartile dealearului: ";
 		for(int index=0;index<dlNrCarti;index++)
 		{
@@ -671,7 +683,7 @@ void twoPlayers(int ordPl1,int ordPl2)
 	for(int index=0;index<=52;index++)
 		folosire[index]=0;
 
-	int mana1[10],mana2[10],nrCarti1=0,nrCarti2=0,dlMana[10],dlNrCarti=0,totalP1=0,totalP2=0,totalD=0,bj=0;
+	int mana1[10],mana2[10],nrCarti1=0,nrCarti2=0,dlMana[10],dlNrCarti=0,totalP1=0,totalP2=0,totalD=0;
 	string raspuns1;
 	system("cls");
 	bet1Gresit:
@@ -728,6 +740,35 @@ void twoPlayers(int ordPl1,int ordPl2)
 		if(totalD>21)
 		verificamAs(totalD,dlMana,dlNrCarti);
 	}
+	int insBet;
+	string insurance;
+	if(pachet[dlMana[0]].numar==14 || pachet[dlMana[0]].numar==1)
+	{
+		cout<<jucator[ordPl1].username<<"- Insurance? (da/nu)"<<endl;
+		cin>>insurance;
+		insBet=bet1/2;
+		if(insurance=="da")
+		{
+			jucator[ordPl1].chips=jucator[ordPl1].chips-insBet;
+			if(totalD==21)
+				jucator[ordPl1].chips=jucator[ordPl1].chips+insBet*2;
+		}
+	}
+	cout<<endl;
+	
+	if(pachet[dlMana[0]].numar==14 || pachet[dlMana[0]].numar==1)
+	{
+		cout<<jucator[ordPl2].username<<"- Insurance? (da/nu)"<<endl;
+		cin>>insurance;
+		insBet=bet2/2;
+		if(insurance=="da")
+		{
+			jucator[ordPl2].chips=jucator[ordPl2].chips-insBet;
+			if(totalD==21)
+				jucator[ordPl2].chips=jucator[ordPl2].chips+insBet*2;
+		}
+	}
+	
 	system("cls");
 	cout<<"Cartile dealearului: ";
 	for(int index=0;index<dlNrCarti;index++)
@@ -745,7 +786,7 @@ void twoPlayers(int ordPl1,int ordPl2)
 		cout<<pachet[mana1[index]].simbol<<" ";
 	}
 	cout<<endl;
-	cout<<"Total: "<<totalP1;
+	cout<<"Total: "<<totalP1<<endl;
 	cout<<endl;
 	cout<<"Carti "<<jucator[ordPl2].username<<" :";
 	for(int index=0;index<nrCarti2;index++)
@@ -756,7 +797,6 @@ void twoPlayers(int ordPl1,int ordPl2)
 	cout<<endl;
 	cout<<"Total: "<<totalP2;
 	cout<<endl;
-
 	cout<<endl;
 	if(totalP1>21)
 		cout<<endl<<jucator[ordPl1].username<<" a pierdut!";
@@ -919,7 +959,7 @@ int main()
 	}
 	if(alegere==2)
 	{
-		int r,ordPl1,ordPl2;
+		int ordPl1,ordPl2;
 		system("cls");
 		ordPl1=login(playersReg);
 		ordPl2=login(playersReg);
