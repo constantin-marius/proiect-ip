@@ -959,10 +959,30 @@ int main()
 	}
 	if(alegere==2)
 	{
-		int ordPl1,ordPl2;
+		int ordPl1,ordPl2,r;
 		system("cls");
-		ordPl1=login(playersReg);
-		ordPl2=login(playersReg);
+		cout<<"Player 1"<<endl<<"1.Login"<<endl<<"2.Register"<<endl;
+		cin>>r;
+		if(r==1)
+			ordPl1=login(playersReg);
+		if(r==2)
+		{
+			registration(playersReg);
+			playersReg++;
+			ordPl1=login(playersReg);
+		}
+		system("cls");
+		cout<<"Player 2"<<endl<<"1.Login"<<endl<<"2.Register"<<endl;
+		cin>>r;
+		if(r==1)
+			ordPl2=login(playersReg);
+		if(r==2)
+		{
+			registration(playersReg);
+			playersReg++;
+			ordPl2=login(playersReg);
+		}
+		system("cls");
 		twoPlayers(ordPl1,ordPl2);
 		for(int index=0;index<=52;index++)
 		{
